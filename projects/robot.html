@@ -41,7 +41,8 @@
       background: color-mix(in oklab, var(--bg) 75%, transparent);
       border-bottom:1px solid color-mix(in oklab, var(--text) 12%, transparent)}
     .nav{display:flex; align-items:center; gap:18px; padding:14px 0}
-
+    .nav nav{display:flex; gap:28px}
+    @media (min-width: 900px){ .nav nav{gap:18px} }
     .brand{font-weight:700; letter-spacing:.2px}
     .brand a{color:inherit; text-decoration:none}
     .nav a{color:inherit; text-decoration:none; opacity:.9}
@@ -139,10 +140,6 @@
 
 
         <h2 id="thesis">Thesis</h2>
-        <p>
-          <em>Control Design of a Surgical Robot Actuated by Cable Including Friction Problems and Inverse Kinematics</em> 
-          <p>BEng (Hons) Biomedical Engineering, University of Dundee (April&nbsp;2024).</p>
-        </p>
         <div class="pdf-embed">
           <object data="../assets/thesis.pdf#view=FitH" type="application/pdf">
             <p>Your browser can't display PDFs inline. <a href="../assets/thesis.pdf">Download the thesis</a>.</p>
