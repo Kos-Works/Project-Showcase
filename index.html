@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ivan Kossko — My Website</title>
+  <meta name="description" content="A simple list of projects. Click a name to view details." />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg: #f7f8fb;
+      --bg-soft: #f0f3f9;
+      --text: #0d1117;
+      --muted: #5a6577;
+      --card: #ffffff;
+      --accent: #2f65f5;
+      --accent-2: #15b86a;
+      --ring: rgba(47,101,245,0.25);
+      --shadow: 0 8px 24px rgba(12, 28, 58, 0.12);
+      --radius: 18px;
+      --container: 900px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b0e13;
+        --bg-soft: #121720;
+        --text: #e8eaf0;
+        --muted: #b7c0d1;
+        --card: #0f141d;
+        --accent: #7aa2ff;
+        --accent-2: #9ef0c0;
+        --ring: rgba(122,162,255,0.45);
+        --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      }
+    }
+    :root[data-theme="light"]{
+      --bg: #f7f8fb; --bg-soft: #f0f3f9; --text: #0d1117; --muted: #5a6577;
+      --card: #ffffff; --accent: #2f65f5; --accent-2: #15b86a; --ring: rgba(47,101,245,0.25);
+      --shadow: 0 8px 24px rgba(12, 28, 58, 0.12);
+    }
+    :root[data-theme="dark"]{
+      --bg: #0b0e13; --bg-soft: #121720; --text: #e8eaf0; --muted: #b7c0d1;
+      --card: #0f141d; --accent: #7aa2ff; --accent-2: #9ef0c0; --ring: rgba(122,162,255,0.45);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans;
+         color:var(--text); background:var(--bg)}
+    .container{width:min(100%, var(--container)); margin-inline:auto; padding:0 20px}
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+    /* Header / top bar */
+    .site-header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.5) blur(10px);
+      background: color-mix(in oklab, var(--bg) 75%, transparent);
+      border-bottom:1px solid color-mix(in oklab, var(--text) 12%, transparent)}
+    .nav{display:flex; align-items:center; gap:18px; padding:14px 0}
+    .nav nav{display:flex; gap:18px}
+    .brand{font-weight:700; letter-spacing:.2px}
+    .brand a{color:inherit; text-decoration:none}
+    .nav a{color:inherit; text-decoration:none; opacity:.9}
+    .nav a:hover{opacity:1}
+    .spacer{flex:1}
+    .theme-btn{
+      border:1px solid color-mix(in oklab, var(--text) 18%, transparent); border-radius:999px;
+      padding:8px 12px; background:var(--card); color:inherit; box-shadow:var(--shadow); cursor:pointer;
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px
+    }
+
+    /* Hero / page titles */
+    .hero{position:relative; isolation:isolate; overflow:hidden;
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 25%, var(--bg) 75%), var(--bg));
+      border-bottom:1px solid color-mix(in oklab, var(--text) 10%, transparent)}
+    .hero-inner{display:grid; grid-template-columns: 1fr; gap:16px; align-items:center;
+      padding: clamp(36px, 7vw, 80px) 0}
+    h1.title{font-size: clamp(28px, 4vw, 44px); line-height:1.12; margin:0}
+    .subtitle{margin:0; color:var(--muted)}
+
+    section{padding:36px 0}
+    .footer{padding:36px 0 64px; color:var(--muted);
+      border-top:1px solid color-mix(in oklab, var(--text) 10%, transparent)}
+
+    /* Project list on index */
+    .project-list{list-style:none; padding:0; margin:0}
+    .project-list li{border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      background:var(--card); border-radius:14px; margin:10px 0; padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; box-shadow:var(--shadow)}
+    .project-list a{font-weight:600; text-decoration:none; color:inherit}
+    .project-list a:hover{text-decoration:underline}
+
+
+    /* Minimal tags */
+    .project-list li{gap:12px; flex-wrap:wrap; align-items:center}
+    .project-list li a{flex:1 1 auto; min-width:220px}
+    .tags{display:flex; gap:6px; flex-wrap:wrap}
+    .tag{
+      font-size:12px; line-height:1;
+      padding:6px 8px; border-radius:999px;
+      border:1px solid color-mix(in oklab, var(--text) 14%, transparent);
+      color: color-mix(in oklab, var(--text) 80%, transparent);
+      background: color-mix(in oklab, var(--bg) 88%, var(--bg-soft) 12%);
+    }
+
+    /* Socials */
+    .socials{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+    .social{width:40px; height:40px; display:inline-grid; place-items:center; border-radius:999px; background:var(--card); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); box-shadow:var(--shadow); transition:transform 160ms}
+    .social:hover{transform:translateY(-2px)}
+    .social img{width:22px; height:22px; display:block}
+
+    @media print{ .site-header, .theme-btn { display:none } }
+  </style>
+
+  <!-- Preload small icons -->
+  <link rel="preload" as="image" href="assets/linkedin.svg" />
+  <link rel="preload" as="image" href="assets/instagram.svg" />
+</head>
+<body>
+  <a class="visually-hidden" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <div class="brand"><a href="#top" aria-label="Go to start">Ivan Kossko</a></div>
+      <nav aria-label="Primary">
+        <a href="#projects">Projects</a>
+        
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="spacer"></div>
+      <button class="theme-btn" id="themeToggle" aria-pressed="false" aria-label="Toggle theme">Theme</button>
+    </div>
+  </header>
+
+  <main id="content">
+    <section id="top" class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h1 class="title">Welcome to my website</h1>
+          <p class="subtitle">Here I add anything creative I have done/made!</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2>Projects</h2>
+        
+        <ul class="project-list">
+          <li>
+            <a href="projects/bioreactor.html">Year 3 University Project · Bioreactor</a>
+          </li>
+          <li>
+            <a href="projects/robot.html">Final Year University Project · 6 DoF Robot and Simulation</a>
+          </li>
+          <li>
+            <a href="projects/night-vision.html">Night Vision System</a>
+          </li>
+          <li>
+            <a href="projects/pedal.html">Racing Pedal</a>
+            <span class="tags" aria-label="Tags">
+          </li>
+          <li>
+            <a href="projects/drone.html">Custom FPV Drone</a>
+            <span class="tags" aria-label="Tags">
+          </li>
+          <li>
+            <a href="projects/watches.html">Custom Watches</a>
+            <span class="tags" aria-label="Tags">
+          </li>
+          <li>
+            <a href="projects/printer-upgrades.html">3D Printer Upgrades</a>
+            <span class="tags" aria-label="Tags">
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="socials" role="list" aria-label="Social links">
+          <a class="social" role="listitem"
+             href="https://www.linkedin.com/in/ivan-kossko-81816a32b"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="LinkedIn">
+            <img src="assets/linkedin.svg" alt="LinkedIn">
+          </a>
+          <a class="social" role="listitem"
+             href="https://www.instagram.com/kos_works/"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Instagram">
+            <img src="assets/instagram.svg" alt="Instagram">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Ivan Kossko. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const key = 'prefers-theme';
+    const saved = localStorage.getItem(key);
+    if (saved === 'light' || saved === 'dark') {
+      root.setAttribute('data-theme', saved);
+      if(btn) btn.setAttribute('aria-pressed', String(saved === 'dark'));
+    }
+    if(btn){
+      btn.addEventListener('click', () => {
+        const system = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const current = root.getAttribute('data-theme') || system;
+        const next = current === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem(key, next);
+        btn.setAttribute('aria-pressed', String(next === 'dark'));
+      });
+    }
+    const yearEl = document.getElementById('year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
